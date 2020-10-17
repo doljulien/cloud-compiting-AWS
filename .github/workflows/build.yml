@@ -7,16 +7,16 @@ on:
 
 jobs:
   deploy:
-    name: Upload to Amazon S3
+    name: Up to AWS
     runs-on: ubuntu-latest
 
     steps:
     - name: Configure AWS credentials from Production account
-      uses: aws-actions
+      uses: aws-actions/configure-aws-credentials@v1
       with:
         aws-access-key-id: ${{ secrets.PROD_AWS_ACCESS_KEY_ID }}
         aws-secret-access-key: ${{ secrets.PROD_AWS_SECRET_ACCESS_KEY }}
         aws-region: us-east-1
 
-    - name: Copy files to the production website with the AWS CLI
+    - name: Run command
       run: aws cloudformation deploy --template-file src/infra/cloudformation.yaml --stack-name JulienDOL-stack
